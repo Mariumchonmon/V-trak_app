@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vtrak_app/screens/login_pin.dart';
 class HomeScreen extends StatefulWidget {
 
 
@@ -39,58 +40,65 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             SizedBox(height: 20,),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-              color: Colors.white),
-              child: TextField(
-                controller: newController,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20),
-                  border: InputBorder.none,
-                  hintText: 'User Name',
-                ),
-              ),
-            ),
-            SizedBox(height: 20,),
-            Container(
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: Colors.white),
-              child: TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(20),
-                  border: InputBorder.none,
-                  hintText: 'Password',
-                ),
-              ),
-            ),
-            SizedBox(height: 20,),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-              child: ElevatedButton(
-                style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                    side: BorderSide(color: Colors.orange.shade700,
-                    width: 2.0),
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white),
+                  child: TextField(
+                    controller: newController,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(20),
+                      border: InputBorder.none,
+                      hintText: 'User Name',
+                    ),
                   ),
                 ),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
+                SizedBox(height: 20,),
+                Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white),
+                  child: TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(20),
+                      border: InputBorder.none,
+                      hintText: 'Password',
+                    ),
+                  ),
                 ),
-                child: Text('Login', style: TextStyle(fontSize: 22),),
-                onPressed: () {
-                },
-              ),
+                SizedBox(height: 20,),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        side: BorderSide(color: Colors.orange.shade700,
+                            width: 2.0),
+                      ),
+                    ),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
+                    ),
+                    child: Text('Login', style: TextStyle(fontSize: 22),),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPin()),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+
           ],
         ),
       ),
