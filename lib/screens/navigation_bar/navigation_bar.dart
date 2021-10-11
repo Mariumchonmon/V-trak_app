@@ -6,95 +6,67 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-
+  int _currentIndex = 0;
+  final tabs = [
+    Center(child: Text('Map'),),
+    Center(child: Text('List'),),
+    Center(child: Text('History'),),
+    Center(child: Text('Report'),),
+    Center(child: Text('Alert'),),
+    Center(child: Text('Logout'),),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              color: Colors.orange,
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Rectangle 20.png"),
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-          Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                alignment: Alignment.topCenter,
-                image: AssetImage("assets/images/Rectangle 21.png"),
-              ),
-            ),
-          ),
-          Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Rectangle 26.png"),
-                ),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.orange.shade700,
+        iconSize: 40,
+        unselectedItemColor: Colors.orange.shade700,
+        showUnselectedLabels: true,
 
+        elevation: 5,
+          items:  <BottomNavigationBarItem>[
 
+            BottomNavigationBarItem(
+                icon: Image.asset('assets/images/Rectangle 20.png', width: 30,),
+              label: 'Map',
+             // backgroundColor: Colors.orange,
             ),
-          ),
-          Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Rectangle -2.png",),
-                ),
-
+            BottomNavigationBarItem(
+              icon: Image.asset('assets/images/Rectangle 21.png', width: 30,),
+              label: 'List',
             ),
-          ),
-          Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Rectangle -1.png"),
-                ),
-
+            BottomNavigationBarItem(
+              icon: Image.asset('assets/images/Rectangle 26.png', width: 30,),
+              label: 'History',
             ),
-          ),
-          Container(
-            height: 60,
-            width: MediaQuery.of(context).size.width/6,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: new BorderRadius.circular(8.0),
-              image: DecorationImage(
-                image: AssetImage("assets/images/Rectangle 16.png"),
-              ),
-
+            BottomNavigationBarItem(
+              icon: Image.asset('assets/images/Rectangle -2.png', width: 30,),
+              label: 'Report',
             ),
-          ),
+            BottomNavigationBarItem(
+              icon: Image.asset('assets/images/Rectangle -1.png', width: 30,),
+              label: 'Alert',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset('assets/images/Rectangle 16.png', width: 30,),
+              label: 'Logout',
+            ),
+          ],
+          onTap: (index){
+          setState(() {
+            _currentIndex = index;
+          });
+          },
 
-        ],
       ),
-
-
-
-
     );
   }
 }
+
+
+
