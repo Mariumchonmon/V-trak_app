@@ -71,23 +71,25 @@ class _LogInPinState extends State<LogInPin> {
               ),
             SizedBox(height: 20,),
 
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: ElevatedButton(
-                style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+
+               Container(
+                width: MediaQuery.of(context).size.width,
+                 height: 50,
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: ElevatedButton(
+                  style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
                   ),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
+                  ),
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()),
+                  ); },
+                  child: Text('SET', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800,),),
                 ),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
-                ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()),
-                ); },
-                child: Text('SET', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800,),),
               ),
-            ),
           ],
         ),
 

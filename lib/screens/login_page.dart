@@ -73,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20,),
 
                 Container(
+                  height: 50,
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: ElevatedButton(
@@ -88,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       );
                     },
-                    child: Text('LOGIN', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700,),),
+                    child: Text('LOGIN', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700,),),
                   ),
                 ),
                 Container(
