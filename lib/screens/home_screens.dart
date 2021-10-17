@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:vtrak_app/models/data_model.dart';
 import 'package:vtrak_app/screens/login_pin.dart';
 class HomeScreen extends StatefulWidget {
 
@@ -8,9 +10,45 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+
+Future<Welcome?> loginData(String uSeqNo, String clientId,) async {
+  // var response = await http.post(Uri.https('ideetracker.com', 'api/users'),
+  //     body: {
+  //       "uSeqNo": uSeqNo,
+  //       "clientId": clientId,
+  //     });
+  var data = {
+    "Success": 1,
+    "USeqNo": 1,
+    "ClientID": "17",
+    "Rmkrs": "Login In Success"};
+  print(data);
+
+  // if(response.statusCode == 201){
+  var response;
+  String responseString = response;
+  if(response){
+  welcomeFromJson (responseString);
+  print('Success 1');
+
+  //}
+  // else return null;
+}
+  else{
+     print('Success 0');
+
+  }
+}
+
 class _HomeScreenState extends State<HomeScreen> {
+
+  late Welcome _welcome ;
+
   TextEditingController newController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,10 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white),
                   child: TextField(
                     controller: newController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       border: InputBorder.none,
-                      hintText: 'User Name',
+                      hintText: 'Mobile Number',
                     ),
                   ),
                 ),
@@ -70,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(20),
                       border: InputBorder.none,
-                      hintText: 'Password',
+                      hintText: 'Client Code',
                     ),
                   ),
                 ),
@@ -90,9 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
                     ),
                     child: Text('Login', style: TextStyle(fontSize: 22),),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPin()),
-                      );
+                    onPressed: () async {
+                      // String  uSeqNo = newController.text;
+                      // String clientId = passwordController.text;
+                      // Welcome? data = await loginData(uSeqNo, clientId);
+                      // setState(() {
+                      //   _welcome = data!;
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPin()));
+                   //   });
+
+
                     },
                   ),
                 ),

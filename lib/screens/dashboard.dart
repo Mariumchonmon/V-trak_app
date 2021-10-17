@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';  //for date format
 import 'package:intl/date_symbol_data_local.dart';
+
+import 'map.dart';
 class Dashboard extends StatefulWidget {
 
 
@@ -230,7 +232,11 @@ class _DashboardState extends State<Dashboard> {
                       Container(
                         padding: const EdgeInsets.only(top: 5),
                         child: ElevatedButton(
-                          onPressed: () {  },
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(),
+                            ),
+                            );
+                          },
                           style: _buttonStyle,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -293,7 +299,9 @@ class _DashboardState extends State<Dashboard> {
 
               ],
 
+
             ),
+
           ),
         ),
 

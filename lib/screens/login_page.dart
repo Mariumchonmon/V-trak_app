@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:vtrak_app/screens/dashboard.dart';
 import 'package:vtrak_app/screens/login_pin.dart';
+
+import 'navigation_bar/navigation_bar.dart';
 class LoginPage extends StatefulWidget {
 
   @override
@@ -105,7 +107,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              ],
+
+
+      ],
             ),
 
           ),

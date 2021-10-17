@@ -22,10 +22,7 @@ class _NavigationBarState extends State<NavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: tabs[_currentIndex],
-      bottomNavigationBar: InkWell(
-        splashColor: Colors.green, // splash color
-        onTap: () {}, //
-        child: BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
           currentIndex: 0,
           type: BottomNavigationBarType.shifting,
           selectedItemColor: Colors.orange.shade700,
@@ -39,6 +36,7 @@ class _NavigationBarState extends State<NavigationBar> {
         BottomNavigationBarItem(
         icon: Image.asset('assets/images/Rectangle 20.png', width: 30,),
         title: Text('Map', style: TextStyle(fontWeight: FontWeight.w700,),),
+
         // backgroundColor: Colors.orange,
     ),
     BottomNavigationBarItem(
@@ -67,7 +65,6 @@ class _NavigationBarState extends State<NavigationBar> {
     });
     },
     ),
-      ),
-    );
+      );
   }
 }
