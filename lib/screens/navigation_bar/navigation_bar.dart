@@ -29,7 +29,6 @@ class _NavigationBarState extends State<NavigationBar> {
           iconSize: 40,
           unselectedItemColor: Colors.orange.shade700,
           showUnselectedLabels: true,
-
           elevation: 5,
           items:  <BottomNavigationBarItem>[
 
