@@ -1,166 +1,246 @@
-import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
+import 'package:android_intent/android_intent.dart';
+import 'package:background_location/background_location.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:vtrak_app/models/data_model.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:imei_plugin/imei_plugin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vtrak_app/DataService/APIClient.dart';
 import 'package:vtrak_app/screens/login_pin.dart';
-class HomeScreen extends StatefulWidget {
+import 'package:vtrak_app/widgets/BackgroundDecoration.dart';
+class Login extends StatefulWidget {
 
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _LoginState createState() => _LoginState();
 }
 
+class _LoginState extends State<Login> {
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+  new GlobalKey<ScaffoldState>();
+  bool task=false;
+  String username='';
+  String password='';
+  String mobile="";
+  final position =  Geolocator.getCurrentPosition(forceAndroidLocationManager: true);
 
+  late Position _currentPosition;
 
-class _HomeScreenState extends State<HomeScreen> {
+  enableGps()async{
+    bool isLocationEnabled =
+    await Geolocator.isLocationServiceEnabled();
+    print(isLocationEnabled);
+    if(!isLocationEnabled){
 
+    }
+  }
+  _getCurrentLocation() async{
+    bool isLocationEnabled =
+    await Geolocator.isLocationServiceEnabled();
+    print(isLocationEnabled);
+    if(!isLocationEnabled){
+      if (Theme.of(context).platform == TargetPlatform.android)
+      {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Can't get current location"),
+              content:
+              const Text('Please make sure you enable GPS and try again'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Ok'),
+                  onPressed: () {
+                    final AndroidIntent intent = AndroidIntent(
+                        action: 'android.settings.LOCATION_SOURCE_SETTINGS');
+                    intent.launch();
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+    else{
+      Geolocator
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+          .then((Position position) {
+        setState(() {
+          task=true;
+          login();
+          _currentPosition = position;
+          BackgroundLocation.startLocationService();
+        });
+      }).catchError((e) {
+        print(e);
+      });
+    }
+  }
 
-  TextEditingController newController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-late Future<Welcome> welcome;
-
-@override
+  @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    welcome = fetchPost();
   }
-
-  Future<Welcome> fetchPost() async{
-  final response = await http.get(Uri.parse('http://www.ideetracker.com/mob_trk/mRegisterPg.jsp?Str_iMeiNo=1&Str_Model=IOS&Str_Lat=1.35&Str_Long=103.85&Str_GPS=Y&Client_ID=0&Str_UserID=free&Str_Pwd=user&Str_Mob=92381245&Str_GCMID=1122'));
-
-
-  if(response.statusCode == 200){
-
-    print(response.body);
-    return Welcome.fromJson(json.decode(response.body));
-
-  }
-  else {
-    throw Exception('Success 1');
-  }
-
-  }
-  
-  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Scaffold(key: _scaffoldKey,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/bg.png'),
-            fit: BoxFit.cover),
-          ),
-          child: Column(
-
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-
-            children: [
-               Container(
-                 width: MediaQuery.of(context).size.width,
-                 padding: EdgeInsets.all(50),
-                 margin: const EdgeInsets.only(bottom: 20.0,),
-
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                          image: AssetImage('assets/images/logo_v-trak.png'),
-
-          ),
+          decoration: backgroundDecoration("assets/images/bg.png"),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 100,
+                  width: 200,
+                  decoration: backgroundDecoration("assets/images/logo_v-trak.png"),
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15,top: 4,bottom: 4),
+                    child: TextFormField(
+                      onChanged: (val){
+                        username=val;
+                      },
+                      decoration: InputDecoration(
+                          hintText: 'User name',
+                          border: InputBorder.none
+                      ),
+                    ),
                   ),
                 ),
-              SizedBox(height: 20,),
-              Column(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.white),
-                    child: TextField(
-                      controller: newController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        border: InputBorder.none,
-                        hintText: 'Mobile Number',
-                      ),
-                    ),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.white),
-                    child: TextField(
-                      controller: passwordController,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15,top: 4,bottom: 4),
+                    child: TextFormField(
                       obscureText: true,
+                      onChanged: (val){
+                        password=val;
+                      },
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
-                        border: InputBorder.none,
-                        hintText: 'Client Code',
+                          hintText: 'Password',
+                          border: InputBorder.none
                       ),
                     ),
                   ),
-                  SizedBox(height: 20,),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50,
-                    margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-                    child:  Column(
-                      children: [
-                      FutureBuilder<Welcome>(
-                      future: welcome,
-                      builder: (context, a){
-                        if(a.hasData){
-                          print('success 1');
-                          return Text('a.data.success');
-
-
-
-                        }
-                        else if (a.hasError){
-                         print ('success 0');
-                        // return Text('Success 0');
-
-                        }
-                        return SizedBox();
+                ),
+                SizedBox(height: 20,),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0, right: 15,top: 4,bottom: 4),
+                    child: TextFormField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (val){
+                        mobile=val;
                       },
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            side: BorderSide(color: Colors.orange.shade700,
-                                width: 2.0),
-                          ),
-                        ),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.orange.shade700),
-                        ),
-                        child: Text('Login', style: TextStyle(fontSize: 22),),
-                        onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPin()));
-
-
-                        },
+                      decoration: InputDecoration(
+                          hintText: 'Mobile number',
+                          border: InputBorder.none
                       ),
                     ),
-                  ],
-                    ),),
-                ],
-              ),
+                  ),
+                ),
+                SizedBox(height: 20,),
 
-            ],
+                Container(width: MediaQuery.of(context).size.width,
+                  height: 54,
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0)
+                    ),
+                    color: Colors.orange[700],
+                    onPressed: (){
+                      if(username==""){
+                        _scaffoldKey.currentState!.showSnackBar(APIClient.errorToast("Please enter username"));
+                      }
+                      else if(password==""){
+                        _scaffoldKey.currentState!.showSnackBar(APIClient.errorToast("Please enter your password"));
+                      }
+                      else if(mobile==""){
+                        _scaffoldKey.currentState!.showSnackBar(APIClient.errorToast("Please enter mobile number"));
+                      }
+                      else{
+                        _getCurrentLocation();
+
+                      }
+                    },
+                    child: Padding(
+                      padding: task?EdgeInsets.all(8.0):const EdgeInsets.all(14.0),
+                      child: task?CircularProgressIndicator(
+
+                        backgroundColor: Colors.white,
+                      )
+                          :Text("LOGIN",
+                        style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+                      ),
+                    ),
+
+                  ),
+                )
+              ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+  login()async{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    final result = await APIClient().login(username, password, mobile,
+        _currentPosition.latitude.toString(), _currentPosition.longitude.toString());
+
+    print(result);
+    print(_currentPosition.longitude.toString());
+    if(mounted){
+      setState(() {
+        task=false;
+      });
+    }
+    if(result=="failed"){
+      _scaffoldKey.currentState!.showSnackBar(APIClient.errorToast("Failed"));
+    }
+    else if(result["Success"]==0){
+      _scaffoldKey.currentState!.showSnackBar(APIClient.errorToast(result["Rmkrs"]));
+    }
+    else{
+      _scaffoldKey.currentState!.showSnackBar(APIClient.successToast("Successfully registered"));
+      Future.delayed(
+          Duration(seconds: 2),
+              (){
+            pref.setString("isLogin", "true");
+            Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPin(),
+            ),
+            );
+          }
       );
+
+    }
+  }
+  getImei()async{
+    String imei = await ImeiPlugin.getImei();
+    List<String> multiImei = await ImeiPlugin.getImeiMulti(); //for double-triple SIM phones
+    String uuid = await ImeiPlugin.getId();
+    print(imei);
   }
 }

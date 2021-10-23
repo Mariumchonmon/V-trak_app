@@ -1,11 +1,9 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';  //for date format
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'map.dart';
+
 class Dashboard extends StatefulWidget {
 
 
@@ -79,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
 
                 Container(
                   padding: EdgeInsets.all(10),
-                    height: 120,
+                    height: 150,
                     margin: EdgeInsets.all(10.0),
                     decoration: _decoration ,
                     child: Column(
@@ -90,22 +88,22 @@ class _DashboardState extends State<Dashboard> {
                             Icon(Icons.person, size: 30,),
                             SizedBox(width: 10,),
                             Text('Mohamed Asik', style: TextStyle(fontSize: 20,
-                                fontWeight: FontWeight.w500,
+                               // fontWeight: FontWeight.w500,
                                 color: Colors.black),)
                           ],
                         ),
-                       // SizedBox(height: 10,),
+                        SizedBox(height: 10,),
                         Row(
                           children: [
                             Icon(Icons.airport_shuttle_outlined, size: 30,),
                             SizedBox(width: 10,),
                             Text('GDB4325H', style: TextStyle(
                                 fontSize: 20,
-                                fontWeight: FontWeight.w500,
+                              //  fontWeight: FontWeight.w500,
                                 color: Colors.black),)
                           ],
                         ),
-                      //  SizedBox(height: 10,),
+                        SizedBox(height: 10,),
                         Row(
                           children: [
                             Icon(Icons.date_range, size: 30,),
@@ -126,7 +124,7 @@ class _DashboardState extends State<Dashboard> {
                // SizedBox(height: 5,),
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
-                  height: 350,
+                  height: 280,
                   decoration: _decoration,
                   child: GridView.count(
                     primary: false,
@@ -160,22 +158,7 @@ class _DashboardState extends State<Dashboard> {
                             children: <Widget>[
                               Icon(Icons.list_alt,  color: Colors.white, size: 50,),
                               SizedBox(height: 8,),
-                              Text("JOB LIST", style: TextStyle(fontSize: 12),)
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: ElevatedButton(
-                          onPressed: () {  },
-                          style: _buttonStyle,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.map_outlined,  color: Colors.white, size: 50,),
-                              SizedBox(height: 8,),
-                              Text("MAP", style: TextStyle(fontSize: 12),)
+                              Text("ORDER LIST", style: TextStyle(fontSize: 12),)
                             ],
                           ),
                         ),
@@ -229,32 +212,13 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(),
-                            ),
-                            );
-                          },
-                          style: _buttonStyle,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(Icons.mail,  color: Colors.white, size: 50,),
-                              SizedBox(height: 8,),
-                              Text("MESSAGE", style: TextStyle(fontSize: 12),)
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: 80,),
+                SizedBox(height: 20,),
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 0, 10, 5),
-                  height: 100,
+                  height: 110,
                   decoration: _decoration,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
@@ -280,11 +244,11 @@ class _DashboardState extends State<Dashboard> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.satellite, size: 25,),
+                                Icon(Icons.satellite, size: 30,),
                                 SizedBox(width: 10,),
-                                Icon(Icons.directions_car_rounded, size: 25,),
+                                Icon(Icons.directions_car_rounded, size: 30,),
                                 SizedBox(width: 10,),
-                                Icon(Icons.person_pin_outlined, size: 25,),
+                                Icon(Icons.person_pin_outlined, size: 30,),
                                 SizedBox(width: 10,),
                               ],
 

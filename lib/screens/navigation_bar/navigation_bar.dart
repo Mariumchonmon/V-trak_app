@@ -1,69 +1,222 @@
-
 import 'package:flutter/material.dart';
-class NavigationBar extends StatefulWidget {
+import 'package:flutter/services.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-  @override
-  _NavigationBarState createState() => _NavigationBarState();
+
+bottomNavigation(int index, context){
+  var color;
+  return BottomAppBar(
+    child: Container(height: 60,color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            InkWell(
+                onTap: (){
+                  if(index!=1){
+                 //   Get.to();
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: index==1? color:Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 50,height: 30,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('images/Rectangle 20.png'),fit: BoxFit.contain
+                            )
+                        ),
+                      ),
+                      Text("Map", style: TextStyle(color: index!=1?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),)
+                    ],
+                  ),
+                )
+            ),
+            InkWell(
+              onTap: (){
+                if(index!=2){
+               //   Get.to(VehicleList());
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: index==2?color:Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 50,height: 30,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/Rectangle 21.png'),fit: BoxFit.contain
+                          )
+                      ),
+                    ),
+                    Text("List",
+                      style: TextStyle(color: index!=2?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                if(index!=3){
+               //   Get.to(VehicleHistory());
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: index==3?color:Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 50,height: 30,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/Rectangle 26.png'),fit: BoxFit.contain
+                          )
+                      ),
+                    ),
+                    Text("History",
+                      style: TextStyle(color: index!=3?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                if(index!=4){
+                //  Get.to(VehicleReport());
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: index==4?color:Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 50,height: 30,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/Rectangle -2.png'),fit: BoxFit.contain
+                          )
+                      ),
+                    ),
+                    Text("Report",
+                      style: TextStyle(color: index!=4?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                if(index!=5){
+              //    Get.to(AlertScreen());
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: index==5?color:Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 50,height: 30,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/Rectangle -1.png'),fit: BoxFit.contain
+                          )
+                      ),
+                    ),
+                    Text("Alert",
+                      style: TextStyle(color: index!=5?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                if(index!=6){
+                  _onBackPressed(context);
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: index==6?color:Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 50,height: 30,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('images/Rectangle 16.png'),fit: BoxFit.contain
+                          )
+                      ),
+                    ),
+                    Text("Logout",
+                      style: TextStyle(color: index!=6?color:Colors.white,fontSize: 14,fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ),
+  );
 }
-
-class _NavigationBarState extends State<NavigationBar> {
-  int _currentIndex = 0;
-  final tabs = [
-    Center(child: Text('Map'),),
-    Center(child: Text('List'),),
-    Center(child: Text('History'),),
-    Center(child: Text('Report'),),
-    Center(child: Text('Alert'),),
-    Center(child: Text('Logout'),),
-  ];
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: tabs[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.shifting,
-          selectedItemColor: Colors.orange.shade700,
-          iconSize: 40,
-          unselectedItemColor: Colors.orange.shade700,
-          showUnselectedLabels: true,
-          elevation: 5,
-          items:  <BottomNavigationBarItem>[
-
-        BottomNavigationBarItem(
-        icon: Image.asset('assets/images/Rectangle 20.png', width: 30,),
-        title: Text('Map', style: TextStyle(fontWeight: FontWeight.w700,),),
-
-        // backgroundColor: Colors.orange,
-    ),
-    BottomNavigationBarItem(
-    icon: Image.asset('assets/images/Rectangle 21.png', width: 30,),
-        title: Text('List', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15),),
-    ),
-    BottomNavigationBarItem(
-    icon: Image.asset('assets/images/Rectangle 26.png', width: 30,),
-        title: Text('History', style: TextStyle(fontWeight: FontWeight.w900,fontSize: 15)),),
-    BottomNavigationBarItem(
-    icon: Image.asset('assets/images/Rectangle -2.png', width: 30,),
-        title: Text('Report', style: TextStyle(fontWeight: FontWeight.w900,fontSize: 15 ),),
-    ),
-    BottomNavigationBarItem(
-    icon: Image.asset('assets/images/Rectangle -1.png', width: 30,),
-        title: Text('Alert', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15),),
-    ),
-    BottomNavigationBarItem(
-    icon: Image.asset('assets/images/Rectangle 16.png', width: 30,),
-        title: Text('Logout', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15),),
-    ),
-    ],
-    onTap: (index){
-    setState(() {
-    _currentIndex = index;
-    });
-    },
-    ),
-      );
-  }
+Future<bool?> _onBackPressed(context) async{
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('LOGOUT'),
+          content: Text('Do you really want to logout?'),
+          actions: <Widget>[
+            RaisedButton(
+              color: Colors.red,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text('NO',style: TextStyle(color: Colors.white),),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+            RaisedButton(
+              color: Colors.green,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Text('YES',style: TextStyle(color: Colors.white),),
+              ),
+              onPressed: () {
+                //check?Navigator.pop(context):
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              },
+            ),
+          ],
+        );
+      });
 }
