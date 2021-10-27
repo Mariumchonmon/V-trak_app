@@ -1,7 +1,8 @@
 // @dart=2.9
 
 import 'package:flutter/material.dart';
-import 'package:vtrak_app/screens/home_screens.dart';
+import 'package:vtrak_app/screens/Splash.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Login(),
+      home: Splash(key: null,),
     );
   }
 }
